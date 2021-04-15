@@ -115,17 +115,18 @@ let isGameFinished = false;
 function changeScore(input) {
     if (input == 1) {
         player1Score++;
-        scoreKeeperPlayer1.innerText = `${player1Score}`;
     }
-    else {
+    else if (input==2) {
         player2Score++;
-        scoreKeeperPlayer2.innerText = `${player2Score}`;
     }
+    scoreKeeperPlayer1.innerText = `${player1Score}`;
+    scoreKeeperPlayer2.innerText = `${player2Score}`;
 
     //Update the playing to score every iteration to allow change while playing
     playingTo = playingToGet.value;
 
     //Check if the game is over
+    storeScore();
     reachedMaxScore();
 }
 
@@ -152,6 +153,7 @@ function resetReset() {
     scoreKeeperPlayer2.innerText = `${player2Score}`;
     document.querySelector('#player1-increase').disabled = false;
     document.querySelector('#player2-increase').disabled = false;
+    storeScore();
     isGameFinished = false;
 }
 
@@ -161,5 +163,24 @@ function reachedMaxScore() {
         document.querySelector('#player1-increase').disabled = true;
         document.querySelector('#player2-increase').disabled = true;
         isGameFinished = true;
+        resetScore();
     }
+}
+
+//Localstorage
+function checkIfStoredScore() {
+    if (localStorage.getItem('player1')) {
+        getStoredScore();
+    }
+}
+
+function getStoredScore() {
+    player1Score = localStorage.getItem('player1');
+    player2Score = localStorage.getItem('player2');
+    changeScore();
+}
+
+function storeScore() {
+    localStorage.setItem('player1', player1Score);
+    localStorage.setItem('player2', player2Score);
 }
