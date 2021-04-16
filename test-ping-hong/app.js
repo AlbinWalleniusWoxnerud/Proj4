@@ -28,12 +28,27 @@ let imgAdress = '';
 img.src = `${imgAdress}`;
 img.alt = "Image of 2 table tennis rackets";
 
+//Add id's to divs so they can be targeted
+textSectionDiv1.id = 'textSectionDiv1';
+textSectionDiv2.id = 'textSectionDiv2';
+
+//variables for storing values/scores
+let player1Score = 0;
+let player2Score = 0;
+let playingTo = 1;
+let isGameFinished = false;
+
+//Check if Localstorage exists
+if (localStorage.getItem('player1')) {
+    getStoredScore();
+}
+
 //Define score keeper
-scoreKeeperPlayer1.innerText = '0';
+scoreKeeperPlayer1.innerText = `${player1Score}`;
 scoreKeeperPlayer1.classList.add('tennis-match-score-counter');
 scoreKeeperSeparation.innerText = ';';
 scoreKeeperSeparation.classList.add('tennis-match-score-counter');
-scoreKeeperPlayer2.innerText = '0';
+scoreKeeperPlayer2.innerText = `${player2Score}`;
 scoreKeeperPlayer2.classList.add('tennis-match-score-counter');
 
 //Define paragraph
@@ -90,6 +105,7 @@ mainDiv.appendChild(textSection);
 //Append mainDiv to page
 pageContainer.appendChild(mainDiv);
 
+setDefaultSelect();
 
 //actual thing
 
@@ -103,13 +119,6 @@ const resetButton = document.querySelector('#reset');
 player1IncreaseButton.addEventListener('click', () => { changeScore(1) });
 player2IncreaseButton.addEventListener('click', () => { changeScore(2) });
 resetButton.addEventListener('click', () => { resetScore() });
-
-
-//variables for storing values/scores
-let player1Score = 0;
-let player2Score = 0;
-let playingTo = 1;
-let isGameFinished = false;
 
 //Update the players score, input = players score to update
 function changeScore(input) {
@@ -163,24 +172,23 @@ function reachedMaxScore() {
         document.querySelector('#player1-increase').disabled = true;
         document.querySelector('#player2-increase').disabled = true;
         isGameFinished = true;
-        resetScore();
     }
 }
 
 //Localstorage
-function checkIfStoredScore() {
-    if (localStorage.getItem('player1')) {
-        getStoredScore();
-    }
-}
-
 function getStoredScore() {
     player1Score = localStorage.getItem('player1');
     player2Score = localStorage.getItem('player2');
-    changeScore();
+    playingTo = localStorage.getItem('playingTo');
+}
+
+function setDefaultSelect() {
+    const defaultSelect = document.querySelector(`div#textSectionDiv1 option[value='${playingTo}']`);
+    defaultSelect.selected = "selected";
 }
 
 function storeScore() {
     localStorage.setItem('player1', player1Score);
     localStorage.setItem('player2', player2Score);
+    localStorage.setItem('playingTo', playingTo);
 }
