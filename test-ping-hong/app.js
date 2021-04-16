@@ -6,20 +6,26 @@ const pageContainer = document.querySelector(".tennis-match-counter-main");
 let mainDiv = document.createElement("div");
 let imgSection = document.createElement("section");
 let textSection = document.createElement("section");
+let inputSection = document.createElement('section')
 let textSectionDiv1 = document.createElement("div");
 let textSectionDiv2 = document.createElement("div");
 
 //Create the elements which will go into the containers
 let img = document.createElement("img");
-let scoreKeeperPlayer1 = document.createElement("p");
-let scoreKeeperSeparation = document.createElement("p");
-let scoreKeeperPlayer2 = document.createElement("p");
+let scoreKeeper = document.createElement('p');
+let scoreKeeperSeparation = document.createElement("span");
+let scoreKeeperPlayer1 = document.createElement("span");
+let scoreKeeperPlayer2 = document.createElement("span");
 let instructionParagraph = document.createElement("p");
 let playingToButton = document.createElement('label');
 let matchCountSelect = document.createElement("select");
 let player1IncreasePoints = document.createElement("button");
 let player2IncreasePoints = document.createElement("button");
 let resetScoreButton = document.createElement("button");
+let player1Name = document.createElement('label');
+let player2Name = document.createElement('label');
+let player1Form = document.createElement('form');
+let player2Form = document.createElement('form');
 
 //Define elements
 
@@ -46,7 +52,7 @@ if (localStorage.getItem('player1')) {
 //Define score keeper
 scoreKeeperPlayer1.innerText = `${player1Score}`;
 scoreKeeperPlayer1.classList.add('tennis-match-score-counter');
-scoreKeeperSeparation.innerText = ';';
+scoreKeeperSeparation.innerText = ' ; ';
 scoreKeeperSeparation.classList.add('tennis-match-score-counter');
 scoreKeeperPlayer2.innerText = `${player2Score}`;
 scoreKeeperPlayer2.classList.add('tennis-match-score-counter');
@@ -78,10 +84,13 @@ resetScoreButton.id = 'reset';
 
 //Append elements to containers
 
+//Append to scoreKeeperSeparation
+scoreKeeper.appendChild(scoreKeeperPlayer1);
+scoreKeeper.appendChild(scoreKeeperSeparation);
+scoreKeeper.appendChild(scoreKeeperPlayer2);
+
 //Append relevant elements to textSectionDiv1
-textSectionDiv1.appendChild(scoreKeeperPlayer1);
-textSectionDiv1.appendChild(scoreKeeperSeparation);
-textSectionDiv1.appendChild(scoreKeeperPlayer2);
+textSectionDiv1.appendChild(scoreKeeper);
 textSectionDiv1.appendChild(instructionParagraph);
 textSectionDiv1.appendChild(playingToButton);
 textSectionDiv1.appendChild(matchCountSelect);
@@ -90,6 +99,12 @@ textSectionDiv1.appendChild(matchCountSelect);
 textSectionDiv2.appendChild(player1IncreasePoints);
 textSectionDiv2.appendChild(resetScoreButton);
 textSectionDiv2.appendChild(player2IncreasePoints);
+
+//Append relevant elemets to inputSection
+inputSection.appendChild(player1Name);
+inputSection.appendChild(player2Name);
+inputSection.appendChild(player1Form);
+inputSection.appendChild(player2Form);
 
 //Append sub-sub-containers to textSection
 textSection.appendChild(textSectionDiv1);
@@ -101,10 +116,12 @@ imgSection.appendChild(img);
 //Append sub-containers to mainDiv
 mainDiv.appendChild(imgSection);
 mainDiv.appendChild(textSection);
-
+mainDiv.appendChild(inputSection);
 //Append mainDiv to page
 pageContainer.appendChild(mainDiv);
 
+
+//Post page load check for localStorage
 setDefaultSelect();
 
 //actual thing
@@ -134,8 +151,10 @@ function changeScore(input) {
     //Update the playing to score every iteration to allow change while playing
     playingTo = playingToGet.value;
 
-    //Check if the game is over
+    //Stores current scores in localStorage
     storeScore();
+
+    //Check if the game is over
     reachedMaxScore();
 }
 
@@ -162,7 +181,11 @@ function resetReset() {
     scoreKeeperPlayer2.innerText = `${player2Score}`;
     document.querySelector('#player1-increase').disabled = false;
     document.querySelector('#player2-increase').disabled = false;
+
+    //Reset localStorage with the exception of playingTo
     storeScore();
+
+    //New game --> reset gameFinish logic
     isGameFinished = false;
 }
 
@@ -175,18 +198,23 @@ function reachedMaxScore() {
     }
 }
 
+
 //Localstorage
+
+//If localStorage exists get scores from localStorage
 function getStoredScore() {
     player1Score = localStorage.getItem('player1');
     player2Score = localStorage.getItem('player2');
     playingTo = localStorage.getItem('playingTo');
 }
 
+//Set the default select option to the stored value
 function setDefaultSelect() {
     const defaultSelect = document.querySelector(`div#textSectionDiv1 option[value='${playingTo}']`);
     defaultSelect.selected = "selected";
 }
 
+//Store currents scores in localStorage
 function storeScore() {
     localStorage.setItem('player1', player1Score);
     localStorage.setItem('player2', player2Score);
