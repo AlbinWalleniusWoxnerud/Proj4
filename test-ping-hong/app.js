@@ -21,16 +21,14 @@ let playingToButton = document.createElement('label');
 let matchCountSelect = document.createElement("select");
 let player1IncreasePoints = document.createElement("button");
 let player2IncreasePoints = document.createElement("button");
-let resetScoreButton = document.createElement("button");
-let player1Name = document.createElement('label');
-let player2Name = document.createElement('label');
-let player1Form = document.createElement('form');
-let player2Form = document.createElement('form');
+let resetScoreLogicButton = document.createElement("button");
+let player1NameInput = document.createElement('input');
+let player2NameInput = document.createElement('input');
 
 //Define elements
 
 //Define img
-let imgAdress = '';
+let imgAdress = 'https://nwscdn.com/media/wysiwyg/3kf/Bat-and-ball-included-in-the-set.jpg';
 img.src = `${imgAdress}`;
 img.alt = "Image of 2 table tennis rackets";
 
@@ -43,17 +41,25 @@ let player1Score = 0;
 let player2Score = 0;
 let playingTo = 1;
 let isGameFinished = false;
+let player1Name = 'Player 1';
+let player2Name = 'Player 2';
 
-//Check if Localstorage exists
+//Check if Localstorage of score exists
 if (localStorage.getItem('player1')) {
     getStoredScore();
+}
+
+if (localStorage.getItem('Player1Name')) {
+    getStoredNames();
 }
 
 //Define score keeper
 scoreKeeperPlayer1.innerText = `${player1Score}`;
 scoreKeeperPlayer1.classList.add('tennis-match-score-counter');
+
 scoreKeeperSeparation.innerText = ' ; ';
 scoreKeeperSeparation.classList.add('tennis-match-score-counter');
+
 scoreKeeperPlayer2.innerText = `${player2Score}`;
 scoreKeeperPlayer2.classList.add('tennis-match-score-counter');
 
@@ -75,12 +81,26 @@ for (let i = 1; i <= 10; i++) {
 }
 
 //Define buttons
-player1IncreasePoints.innerText = 'Player 1: +1';
+player1IncreasePoints.innerText = `${player1Name}: +1`;
 player1IncreasePoints.id = 'player1-increase';
-player2IncreasePoints.innerText = 'Player 2: +1';
+
+player2IncreasePoints.innerText = `${player2Name}: +1`;
 player2IncreasePoints.id = 'player2-increase';
-resetScoreButton.innerText = 'Reset';
-resetScoreButton.id = 'reset';
+
+resetScoreLogicButton.innerText = 'Reset';
+resetScoreLogicButton.id = 'reset';
+
+//Define input
+player1NameInput.type = 'text';
+player1NameInput.classList.add('tennis-match-username');
+player1NameInput.placeholder = 'Username';
+player1NameInput.maxLength = 3;
+
+player2NameInput.type = 'text';
+player2NameInput.classList.add('tennis-match-username');
+player2NameInput.placeholder = 'Username';
+player2NameInput.maxLength = 3;
+
 
 //Append elements to containers
 
@@ -97,14 +117,12 @@ textSectionDiv1.appendChild(matchCountSelect);
 
 //Append relevant elements to textSectionDiv2
 textSectionDiv2.appendChild(player1IncreasePoints);
-textSectionDiv2.appendChild(resetScoreButton);
+textSectionDiv2.appendChild(resetScoreLogicButton);
 textSectionDiv2.appendChild(player2IncreasePoints);
 
 //Append relevant elemets to inputSection
-inputSection.appendChild(player1Name);
-inputSection.appendChild(player2Name);
-inputSection.appendChild(player1Form);
-inputSection.appendChild(player2Form);
+inputSection.appendChild(player1NameInput);
+inputSection.appendChild(player2NameInput);
 
 //Append sub-sub-containers to textSection
 textSection.appendChild(textSectionDiv1);
@@ -117,6 +135,7 @@ imgSection.appendChild(img);
 mainDiv.appendChild(imgSection);
 mainDiv.appendChild(textSection);
 mainDiv.appendChild(inputSection);
+
 //Append mainDiv to page
 pageContainer.appendChild(mainDiv);
 
@@ -131,11 +150,15 @@ const playingToGet = document.querySelector('#tennis-match-counter-select');
 const player1IncreaseButton = document.querySelector('#player1-increase');
 const player2IncreaseButton = document.querySelector('#player2-increase');
 const resetButton = document.querySelector('#reset');
+const player1NameInputGet = document.querySelectorAll('.tennis-match-username')[0];
+const player2NameInputGet = document.querySelectorAll('.tennis-match-username')[1];
 
 //eventlistener to trigger relevant function
 player1IncreaseButton.addEventListener('click', () => { changeScore(1) });
 player2IncreaseButton.addEventListener('click', () => { changeScore(2) });
-resetButton.addEventListener('click', () => { resetScore() });
+resetButton.addEventListener('click', () => { resetScoreLogic() });
+player1NameInputGet.addEventListener('input', () => changeName(1))
+player2NameInputGet.addEventListener('input', () => changeName(2))
 
 //Update the players score, input = players score to update
 function changeScore(input) {
@@ -159,26 +182,30 @@ function changeScore(input) {
 }
 
 //Reset score logic
-function resetScore() {
+function resetScoreLogic() {
     //If the game isn't finished ask for confirmation to reset score
     if (isGameFinished == false) {
         let confirmation = confirm('Are you sure?');
         if (confirmation == true) {
-            resetReset();
+            resetScore();
         }
     }
     //If the game is finished, reset without asking for confirmation
     else {
-        resetReset();
+        resetScore();
     }
 }
 
 //Reset score - reset playerScore, un-disable buttons
-function resetReset() {
+function resetScore() {
     player1Score = 0;
     player2Score = 0;
+    player1Name = 'Player 1';
+    player2Name = 'Player 2';
     scoreKeeperPlayer1.innerText = `${player1Score}`;
     scoreKeeperPlayer2.innerText = `${player2Score}`;
+    player1IncreaseButton.innerText = `${player1Name}: +1`;
+    player2IncreaseButton.innerText = `${player2Name}: +1`;
     document.querySelector('#player1-increase').disabled = false;
     document.querySelector('#player2-increase').disabled = false;
 
@@ -187,6 +214,18 @@ function resetReset() {
 
     //New game --> reset gameFinish logic
     isGameFinished = false;
+}
+
+//Change the name of the players, input - 1 = player1, 2 = player2
+function changeName(input) {
+    if (input == 1) {
+        player1Name = player1NameInputGet.value;
+        player1IncreaseButton.innerText = `${player1Name}: +1`;
+    }
+    else {
+        player2Name = player2NameInputGet.value;
+        player2IncreaseButton.innerText = `${player2Name}: +1`;
+    }
 }
 
 //Is the game over - disable buttons
@@ -208,6 +247,12 @@ function getStoredScore() {
     playingTo = localStorage.getItem('playingTo');
 }
 
+//If localStorage of names exists get playerName from localStorage
+function getStoredNames() {
+    player1Name = localStorage.getItem('Player1Name');
+    player2Name = localStorage.getItem('Player2Name');
+}
+
 //Set the default select option to the stored value
 function setDefaultSelect() {
     const defaultSelect = document.querySelector(`div#textSectionDiv1 option[value='${playingTo}']`);
@@ -219,4 +264,6 @@ function storeScore() {
     localStorage.setItem('player1', player1Score);
     localStorage.setItem('player2', player2Score);
     localStorage.setItem('playingTo', playingTo);
+    localStorage.setItem('Player1Name', player1Name);
+    localStorage.setItem('Player2Name', player2Name);
 }
