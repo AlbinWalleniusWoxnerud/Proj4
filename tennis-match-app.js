@@ -41,7 +41,11 @@ mainDiv.id = 'tennis-match-counter-main-div';
 imgSection.id = 'tennis-match-counter-main-div-img-section';
 textSection.id = 'tennis-match-counter-main-div-text-section';
 textSectionDiv1.id = 'textSectionDiv1';
+
 textSectionDiv2.id = 'textSectionDiv2';
+//Bulma framework
+textSectionDiv2.classList.add('buttons', 'are-medium');
+
 inputSection.id = 'tennis-match-counter-main-div-input-section';
 resetSection.id = 'tennis-match-counter-main-div-reset-section';
 matchHistorySection.id = 'tennis-match-counter-main-div-matchhistory-section';
@@ -58,14 +62,15 @@ let playingTo = 1;
 let isGameFinished = false;
 let player1Name = 'Player 1';
 let player2Name = 'Player 2';
+let winner = '';
 
 //Check if Localstorage of score exists
 if (localStorage.getItem('player1')) {
-    getStoredScore();
+    GetStoredScore();
 }
 
 if (localStorage.getItem('Player1Name')) {
-    getStoredNames();
+    GetStoredNames();
 }
 
 //Define score keeper
@@ -98,12 +103,15 @@ for (let i = 1; i <= 10; i++) {
 //Define buttons
 player1IncreasePoints.innerText = `${player1Name}: +1`;
 player1IncreasePoints.id = 'player1-increase';
+player1IncreasePoints.classList.add('button', 'is-success');
 
 player2IncreasePoints.innerText = `${player2Name}: +1`;
 player2IncreasePoints.id = 'player2-increase';
+player2IncreasePoints.classList.add('button', 'is-danger');
 
 newMatchButton.innerText = 'New Match';
 newMatchButton.id = 'newMatch';
+newMatchButton.classList.add('button', 'is-white');
 
 //Define input
 player1NameInput.type = 'text';
@@ -174,9 +182,9 @@ mainDiv.appendChild(matchHistorySection);
 pageContainer.appendChild(mainDiv);
 
 
-//Post page load check for localStorage
-setDefaultSelect();
-
+//Post page load check for localStorage and game over
+ReachedMaxScore();
+SetDefaultSelect();
 
 //actual thing/actual app
 
@@ -190,15 +198,15 @@ const player2NameInputGet = document.querySelectorAll('.tennis-match-username')[
 const resetButton = document.querySelector('#complete-reset');
 
 //eventlistener to trigger relevant function
-player1IncreaseButton.addEventListener('click', () => { changeScore(1) });
-player2IncreaseButton.addEventListener('click', () => { changeScore(2) });
-newMatchButtonLogic.addEventListener('click', () => { newMatchLogic() });
-player1NameInputGet.addEventListener('input', () => {changeName(1) })
-player2NameInputGet.addEventListener('input', () => { changeName(2) })
+player1IncreaseButton.addEventListener('click', () => { ChangeScore(1) });
+player2IncreaseButton.addEventListener('click', () => { ChangeScore(2) });
+newMatchButtonLogic.addEventListener('click', () => { NewMatchLogic() });
+player1NameInputGet.addEventListener('input', () => {ChangeName(1) })
+player2NameInputGet.addEventListener('input', () => { ChangeName(2) })
 resetButton.addEventListener('click', () => { Reset() });
 
 //Update the players score, input = players score to update
-function changeScore(input) {
+function ChangeScore(input) {
     switch (input) {
         case 1:
             player1Score++;
@@ -207,6 +215,7 @@ function changeScore(input) {
             player2Score++;
             break;
     }
+    //Asign new score
     scoreKeeperPlayer1.innerText = `${player1Score}`;
     scoreKeeperPlayer2.innerText = `${player2Score}`;
 
@@ -214,14 +223,14 @@ function changeScore(input) {
     playingTo = playingToGet.value;
 
     //Stores current scores in localStorage
-    storeScore();
+    StoreScore();
 
     //Check if the game is over
-    reachedMaxScore();
+    ReachedMaxScore();
 }
 
 //new matcc logic
-function newMatchLogic() {
+function NewMatchLogic() {
     //If the match isn't finished ask for confirmation to Reset score and start new match
     if (isGameFinished == false) {
         let confirmation = confirm('Are you sure?');
@@ -247,14 +256,14 @@ function ResetScore() {
     document.querySelector('#player2-increase').disabled = false;
 
     //Reset localStorage with the exception of playingTo
-    storeScore();
+    StoreScore();
 
     //New game --> Reset gameFinish logic
     isGameFinished = false;
 }
 
 //Change the name of the players, input - 1 = player1, 2 = player2
-function changeName(input) {
+function ChangeName(input) {
     switch (input) {
         case 1:
             if (player1NameInputGet.value !== '') {
@@ -280,39 +289,49 @@ function changeName(input) {
 }
 
 //Is the game over
-function reachedMaxScore() {
+function ReachedMaxScore() {
     if (playingTo == player1Score) {
+        //Store winner
+        winner = `${player1Name}`;
         //Match is over, disable buttons
-        gameOver();
+        GameOver();
         //Add match to match history
-        addToMatchHistory(1);
+        AddToMatchHistory(1);
     }
     else if (playingTo == player2Score) {
+        //Store winner
+        winner = `${player2Name}`;
         //Match is over, disable buttons
-        gameOver();
+        GameOver();
         //Add match to match history
-        addToMatchHistory(2);
+        AddToMatchHistory(2);
     }
 }
 
-function gameOver() {
+//When game is over disable further changes to score
+function GameOver() {
     document.querySelector('#player1-increase').disabled = true;
     document.querySelector('#player2-increase').disabled = true;
     isGameFinished = true;
 }
 
-function addToMatchHistory(input) {
+//When a game is over add said name to match history
+function AddToMatchHistory(input) {
     let matchHistoryBodyRow = document.createElement('tr');
     let matchHistoryBodyTdWinner = document.createElement('td');
     let matchHistoryBodyTdScore = document.createElement('td');
+
+    //Depending on who won change order of names
     switch (input) {
         case 1:
             matchHistoryBodyTdWinner.innerText = `${player1Name}`;
             matchHistoryBodyTdScore.innerText = `${player1Score} to ${player2Score}`
+            MatchHistoryStorage();
             break;
         case 2:
             matchHistoryBodyTdWinner.innerText = `${player2Name}`;
             matchHistoryBodyTdScore.innerText = `${player2Score} to ${player1Score}`
+            MatchHistoryStorage();
             break;
     }
     matchHistoryBodyRow.appendChild(matchHistoryBodyTdWinner);
@@ -320,6 +339,11 @@ function addToMatchHistory(input) {
     matchHistoryBody.appendChild(matchHistoryBodyRow);
 }
 
+function AddToMatchHistory() {
+    console.log('hello');
+}
+
+//Delete all info stored on the page, including localStorge
 function Reset() {
     let confirmation = confirm('Are you sure you want a completely reset?');
         if (confirmation == true) {
@@ -331,29 +355,33 @@ function Reset() {
 //Localstorage
 
 //If localStorage exists get scores from localStorage
-function getStoredScore() {
+function GetStoredScore() {
     player1Score = localStorage.getItem('player1');
     player2Score = localStorage.getItem('player2');
     playingTo = localStorage.getItem('playingTo');
 }
 
 //If localStorage of names exists get playerName from localStorage
-function getStoredNames() {
+function GetStoredNames() {
     player1Name = localStorage.getItem('Player1Name');
     player2Name = localStorage.getItem('Player2Name');
 }
 
 //Set the default select option to the stored value
-function setDefaultSelect() {
+function SetDefaultSelect() {
     const defaultSelect = document.querySelector(`div#textSectionDiv1 option[value='${playingTo}']`);
     defaultSelect.selected = "selected";
 }
 
 //Store currents scores in localStorage
-function storeScore() {
+function StoreScore() {
     localStorage.setItem('player1', player1Score);
     localStorage.setItem('player2', player2Score);
     localStorage.setItem('playingTo', playingTo);
     localStorage.setItem('Player1Name', player1Name);
     localStorage.setItem('Player2Name', player2Name);
+}
+
+function MatchHistoryStorage() {
+    
 }
