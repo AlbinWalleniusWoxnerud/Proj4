@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
+    
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBCupQ2IcqgGlctn-_SBpe9iWnbNV-qWqQ",
+            authDomain: "school-prooject4-tennis-match.firebaseapp.com",
+            projectId: "school-prooject4-tennis-match",
+            storageBucket: "school-prooject4-tennis-match.appspot.com",
+            messagingSenderId: "673642074890",
+            appId: "1:673642074890:web:9fa9badca1a5fb44b5a0f3",
+            measurementId: "G-V4B76GT5RV"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script defer src="app.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="GoogleLogin()">Google</button>
+</body>
+</html>
