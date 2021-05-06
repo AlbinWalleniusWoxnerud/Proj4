@@ -7,6 +7,7 @@ let mainDiv = document.createElement("div");
 let imgSection = document.createElement("section");
 let textSection = document.createElement("section");
 let textSectionDiv1 = document.createElement("div");
+let dropDownSection = document.createElement("div");
 let textSectionDiv2 = document.createElement("div");
 let inputSection = document.createElement('section')
 let resetSection = document.createElement('section')
@@ -42,11 +43,16 @@ imgSection.id = 'tennis-match-counter-main-div-img-section';
 textSection.id = 'tennis-match-counter-main-div-text-section';
 textSectionDiv1.id = 'textSectionDiv1';
 
+dropDownSection.id = 'dropDownSection-Div';
+dropDownSection.classList.add('field', 'is-grouped');
+
 textSectionDiv2.id = 'textSectionDiv2';
 //Bulma framework
 textSectionDiv2.classList.add('buttons', 'are-medium');
 
 inputSection.id = 'tennis-match-counter-main-div-input-section';
+inputSection.classList.add('field', 'is-grouped');
+
 resetSection.id = 'tennis-match-counter-main-div-reset-section';
 matchHistorySection.id = 'tennis-match-counter-main-div-matchhistory-section';
 
@@ -85,13 +91,16 @@ scoreKeeperPlayer2.classList.add('tennis-match-score-counter');
 
 //Define paragraph
 instructionParagraph.innerText = "Use the buttons below to adjust the score.";
+instructionParagraph.classList.add('content', 'is-medium');
 
 //Define label
 playingToButton.innerText = 'Playing to';
 playingToButton.name = 'playingTo';
+playingToButton.classList.add('label');
 
 //Define select, select options
 matchCountSelect.id = 'tennis-match-counter-select';
+matchCountSelect.classList.add('select');
 for (let i = 1; i <= 10; i++) {
     let matchCountSelectOption = document.createElement('option');
     matchCountSelectOption.value = i;
@@ -115,21 +124,28 @@ newMatchButton.classList.add('button', 'is-white');
 
 //Define input
 player1NameInput.type = 'text';
-player1NameInput.classList.add('tennis-match-username');
+player1NameInput.classList.add('tennis-match-username', 'input', 'is-success');
 player1NameInput.placeholder = 'Username';
 player1NameInput.maxLength = 3;
 
 player2NameInput.type = 'text';
-player2NameInput.classList.add('tennis-match-username');
+player2NameInput.classList.add('tennis-match-username', 'input', 'is-danger');
 player2NameInput.placeholder = 'Username';
 player2NameInput.maxLength = 3;
 
 //Define match history
+matchHistory.classList.add('table');
 matchHistoryHeadTag.innerText = 'Match History';
+matchHistoryHeadTag.classList.add('thead', 'title', 'is-3');
+matchHistoryHead.classList.add('thead');
+matchHistoryHeadRow.classList.add('tr');
+matchHistoryHeadTag.classList.add('th');
+matchHistoryBody.classList.add('tbody');
 
 //Define reset
 reset.innerText = 'Complete Reset';
 reset.id = 'complete-reset';
+reset.classList.add('button', 'is-medium', 'is-black');
 
 
 //Append elements to containers
@@ -139,11 +155,14 @@ scoreKeeper.appendChild(scoreKeeperPlayer1);
 scoreKeeper.appendChild(scoreKeeperSeparation);
 scoreKeeper.appendChild(scoreKeeperPlayer2);
 
+//Append relevant to dropDownSection
+dropDownSection.appendChild(playingToButton);
+dropDownSection.appendChild(matchCountSelect);
+
 //Append relevant elements to textSectionDiv1
 textSectionDiv1.appendChild(scoreKeeper);
 textSectionDiv1.appendChild(instructionParagraph);
-textSectionDiv1.appendChild(playingToButton);
-textSectionDiv1.appendChild(matchCountSelect);
+textSectionDiv1.appendChild(dropDownSection);
 
 //Append relevant elements to textSectionDiv2
 textSectionDiv2.appendChild(player1IncreasePoints);
@@ -339,9 +358,9 @@ function AddToMatchHistory(input) {
     matchHistoryBody.appendChild(matchHistoryBodyRow);
 }
 
-function AddToMatchHistory() {
-    console.log('hello');
-}
+// function AddToMatchHistory() {
+//     console.log('hello');
+// }
 
 //Delete all info stored on the page, including localStorge
 function Reset() {
