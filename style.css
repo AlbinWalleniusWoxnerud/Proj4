@@ -7,3 +7,11 @@
 .index-body-footer {
   padding: 2vh;
 }
+
+#signedInSite-h1-welcome {
+  background-color: black;
+}
+
+.custom-grey {
+  background-color: #cdcdcd;
+}
