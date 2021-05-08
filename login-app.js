@@ -14,27 +14,26 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-const googleSignInBtn = document.querySelector('#signInWithGoogle');
-const signInWithEmail = document.querySelector('#signInWithEmail');
-const signOutBtn = document.querySelector('#signOut');
+const googleloginBtn = document.querySelector('#login-with-google');
+const loginWithEmail = document.querySelector('#login-with-email');
+const singUpWithEmail = document.querySelector('#sign-up-with-email');
+const emailInput = document.querySelector('#login-singup-input-email');
+const passwordInput = document.querySelector('#login-singup-input-password');
 const auth = firebase.auth();
 
-googleSignInBtn.addEventListener('click', () => {
+googleloginBtn.addEventListener('click', () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-      console.log(result)
-    })
+    .singInWithPopup(provider)
 }
 );
 
-signOutBtn.addEventListener('click', () => {
-  auth.signOut();
+loginWithEmail.addEventListener('click', e => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  auth.singInW
 })
 
 auth.onAuthStateChanged(user => {
-  if (user) {
-    // window.location.replace('/signedInSite.html');
-  }
-})
+  if (user) window.location.replace('signedInSite.html');
+});
