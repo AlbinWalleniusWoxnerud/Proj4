@@ -182,7 +182,7 @@ matchHistoryHead.appendChild(matchHistoryHeadRow);
 matchHistory.appendChild(matchHistoryHead);
 matchHistory.appendChild(matchHistoryBody);
 matchHistorySection.appendChild(matchHistory);
- 
+
 //Append sub-sub-containers to textSection
 textSection.appendChild(textSectionDiv1);
 textSection.appendChild(textSectionDiv2);
@@ -220,7 +220,7 @@ const resetButton = document.querySelector('#complete-reset');
 player1IncreaseButton.addEventListener('click', () => { ChangeScore(1) });
 player2IncreaseButton.addEventListener('click', () => { ChangeScore(2) });
 newMatchButtonLogic.addEventListener('click', () => { NewMatchLogic() });
-player1NameInputGet.addEventListener('input', () => {ChangeName(1) })
+player1NameInputGet.addEventListener('input', () => { ChangeName(1) })
 player2NameInputGet.addEventListener('input', () => { ChangeName(2) })
 resetButton.addEventListener('click', () => { Reset() });
 
@@ -365,10 +365,10 @@ function AddToMatchHistory(input) {
 //Delete all info stored on the page, including localStorge
 function Reset() {
     let confirmation = confirm('Are you sure you want a completely reset?');
-        if (confirmation == true) {
-            localStorage.clear();
-            location.reload();
-        }
+    if (confirmation == true) {
+        localStorage.clear();
+        location.reload();
+    }
 }
 
 //Localstorage
@@ -402,5 +402,5 @@ function StoreScore() {
 }
 
 function MatchHistoryStorage() {
-    
+
 }

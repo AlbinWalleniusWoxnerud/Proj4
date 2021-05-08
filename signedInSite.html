@@ -15,7 +15,7 @@
       src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"
     ></script>
     <script defer src="index-app.js"></script>
-    <title>Main page</title>
+    <title>Main site - Logged In</title>
   </head>
   <body>
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
@@ -24,12 +24,17 @@
           <img src="" alt="." />
         </a>
       </div>
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <button class="button is-danger">Tennis Match App</button>
+        </div>
+      </div>
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary" href="/login.html">
+            <button class="button is-primary" href="/login.html" disabled>
               <strong>Login</strong>
-            </a>
+            </button>
             <button id="index-nav-btn-Logout" class="button is-light">
               Logout
             </button>

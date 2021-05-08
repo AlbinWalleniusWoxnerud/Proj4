@@ -1,1 +1,9 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
+
+.index-body-section {
+  padding: 0px;
+}
+
+.index-body-footer {
+  padding: 2vh;
+}
