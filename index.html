@@ -5,15 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script
-      defer
-      src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"
-    ></script>
-    <!-- Add Firebase products that you want to use -->
-    <script
-      defer
-      src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"
-    ></script>
     <script defer src="index-app.js"></script>
     <title>Main page</title>
   </head>
@@ -30,7 +21,7 @@
             <a class="button is-primary" href="/login.html">
               <strong>Login</strong>
             </a>
-            <button id="index-nav-btn-Logout" class="button is-light">
+            <button id="index-nav-btn-Logout" class="button is-light" disabled>
               Logout
             </button>
           </div>
@@ -42,11 +33,38 @@
         <div class="container has-text-centered">
           <div class="columns is-vcentered">
             <div class="column is-5">
-              <figure class="image is-16by9">
+              <figure class="image">
                 <img
-                  src="http://cdn.mos.cms.futurecdn.net/boKbh7qkA8bF6dpRwg4hW7.jpg"
+                  src="/1440px-Tennis_Racket_and_Balls.jpg"
                   alt="Picture of a tennis racket"
                 />
+                <div class="subtitle is-6">
+                  By
+                  <a
+                    class="has-text-link"
+                    href="https://en.wikipedia.org/wiki/User:Vladsinger"
+                    title="wikipedia:User:Vladsinger"
+                    >Vladsinger</a
+                  >
+                  from
+                  <a
+                    class="has-text-link"
+                    href="https://en.wikipedia.org/wiki/"
+                    title="wikipedia:"
+                    >English Wikipedia</a
+                  >,
+                  <a
+                    class="has-text-link"
+                    href="http://creativecommons.org/licenses/by-sa/3.0/"
+                    title="Creative Commons Attribution-Share Alike 3.0"
+                    >CC BY-SA 3.0</a
+                  >,
+                  <a
+                    class="has-text-link"
+                    href="https://commons.wikimedia.org/w/index.php?curid=2262555"
+                    >Link</a
+                  >
+                </div>
               </figure>
             </div>
             <div class="column is-6">
@@ -65,8 +83,8 @@
     <section class="section index-body-section">
       <figure class="image">
         <img
-          src="https://wallpapercave.com/wp/wp3088653.jpg"
-          alt="Picture of a tennis ball"
+          src="/Tennis_court_unifei.jpg"
+          alt="Picture of a tennis court, By Py4nf, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons"
         />
       </figure>
     </section>
