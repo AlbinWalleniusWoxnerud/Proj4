@@ -16,7 +16,6 @@ firebase.initializeApp(firebaseConfig);
 
 const googleloginBtn = document.querySelector('#login-with-google');
 const loginWithEmail = document.querySelector('#login-with-email');
-const singUpWithEmail = document.querySelector('#sign-up-with-email');
 const emailInput = document.querySelector('#login-singup-input-email');
 const passwordInput = document.querySelector('#login-singup-input-password');
 const auth = firebase.auth();
@@ -24,14 +23,35 @@ const auth = firebase.auth();
 googleloginBtn.addEventListener('click', () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth()
-    .singInWithPopup(provider)
+    .signInWithPopup(provider);
+  // .then((userCredential) => {
+  //   // Signed in
+  //   var user = userCredential.user;
+  //   // ...
+  // })
+  // .catch((error) => {
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   console.log(errorMessage);
+  // });
 }
 );
 
 loginWithEmail.addEventListener('click', e => {
   const email = emailInput.value;
   const password = passwordInput.value;
-  auth.singInW
+  firebase.auth()
+    .signInWithEmailAndPassword(email, password)
+  // .then((userCredential) => {
+  //   // Signed in
+  //   var user = userCredential.user;
+  //   // ...
+  // })
+  // .catch((error) => {
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   console.log(errorMessage);
+  // });
 })
 
 auth.onAuthStateChanged(user => {

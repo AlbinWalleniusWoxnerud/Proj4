@@ -10,12 +10,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const displayName = document.querySelector('#signedIn-display-name');
 const auth = firebase.auth();
 
 //Check if logged in, if not redirect
 auth.onAuthStateChanged(user => {
-    if (user) return;
-    window.location.replace('index.html');
+    if (user) {
+        displayName.innerText = `Welcome ${user.displayName}`;
+    }
+    else {
+        window.location.replace('index.html');
+    }
 })
 
 const logOutBtn = document.querySelector('#index-nav-btn-Logout');
