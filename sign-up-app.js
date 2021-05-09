@@ -34,6 +34,8 @@ signUpWithEmail.addEventListener('click', e => {
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorMessage);
+            alert(errorMessage);
+            passwordInput.value = '';
         });
 })
 

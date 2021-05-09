@@ -16,7 +16,12 @@ const auth = firebase.auth();
 //Check if logged in, if not redirect
 auth.onAuthStateChanged(user => {
     if (user) {
-        displayName.innerText = `Welcome ${user.displayName}`;
+        if (user.displayName == null) {
+            displayName.innerText = `Welcome ${user.email.slice(0, user.email.indexOf('@'))}`;
+        }
+        else {
+            displayName.innerText = `Welcome ${user.displayName.slice(0, user.displayName.indexOf(' '))}`;
+        }
     }
     else {
         window.location.replace('index.html');

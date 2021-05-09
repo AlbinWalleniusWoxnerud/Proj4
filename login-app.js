@@ -23,35 +23,39 @@ const auth = firebase.auth();
 googleloginBtn.addEventListener('click', () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth()
-    .signInWithPopup(provider);
-  // .then((userCredential) => {
-  //   // Signed in
-  //   var user = userCredential.user;
-  //   // ...
-  // })
-  // .catch((error) => {
-  //   var errorCode = error.code;
-  //   var errorMessage = error.message;
-  //   console.log(errorMessage);
-  // });
-}
-);
+    .signInWithPopup(provider)
+    .then((userCredential) => {
+      console.log(userCredential);
+      // Signed in
+      var user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorMessage);
+    });
+});
 
-loginWithEmail.addEventListener('click', e => {
+loginWithEmail.addEventListener('click', () => {
   const email = emailInput.value;
   const password = passwordInput.value;
   firebase.auth()
     .signInWithEmailAndPassword(email, password)
-  // .then((userCredential) => {
-  //   // Signed in
-  //   var user = userCredential.user;
-  //   // ...
-  // })
-  // .catch((error) => {
-  //   var errorCode = error.code;
-  //   var errorMessage = error.message;
-  //   console.log(errorMessage);
-  // });
+    .then((userCredential) => {
+      console.log(userCredential);
+      // Signed in
+      var user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      emailInput.value = '';
+      passwordInput.value = '';
+      alert('There is no user record corresponding to this identifier. Please try again!');
+    });
 })
 
 auth.onAuthStateChanged(user => {

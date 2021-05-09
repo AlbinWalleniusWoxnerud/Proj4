@@ -4,11 +4,86 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"
+    ></script>
+    <!-- Add Firebase products that you want to use -->
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"
+    ></script>
+    <script defer src="firebaseStuff.js"></script>
     <script defer src="tennis-match-app.js"></script>
-    <title>Tennis Match</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Login</title>
   </head>
   <body>
-    <main class="tennis-match-counter-main"></main>
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="signedInSite.html">
+          <figure class="image">
+            <img src="." />
+          </figure>
+        </a>
+        <a
+          role="button"
+          class="navbar-burger"
+          data-target="navMenu"
+          aria-label="menu"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <button class="button is-primary" href="/login.html" disabled>
+                <strong>Login</strong>
+              </button>
+              <button id="index-nav-btn-Logout" class="button is-light">
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="hero is-fullheight custom-grey">
+      <div class="hero-body">
+        <div class="column is-8 is-offset-2">
+          <div class="box">
+            <div class="container has-text-centered">
+              <h1 class="title is-2 has-text-black">
+                Tennis Match Score Keeper
+              </h1>
+              <main class="tennis-match-counter-main"></main>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer has-background-info index-body-footer">
+      <div class="content has-text-centered has-text-white is-small">
+        <p class="has-text-center">
+          Subject to the extent caused by the laws of Japan. DEFINITIONS
+          "Contribution" means: in the Work or any Contributor. You must include
+          a Compiled form of the Work unless those persons have stated
+          explicitly that they have is not already a Licensed Product is
+          available under various free culture licenses, consistent with the
+          Work includes a case where a Digital Font Program, which may contain
+          errors that could cause failures or loss of data, programs or
+          equipment, and unavailability or interruption of operations.
+        </p>
+      </div>
+    </footer>
   </body>
 </html>

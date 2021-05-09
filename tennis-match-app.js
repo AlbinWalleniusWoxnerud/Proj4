@@ -15,7 +15,7 @@ let matchHistorySection = document.createElement('section');
 
 //Create the elements which will go into the containers
 let img = document.createElement("img");
-let scoreKeeper = document.createElement('p');
+let scoreKeeper = document.createElement('div');
 let scoreKeeperSeparation = document.createElement("span");
 let scoreKeeperPlayer1 = document.createElement("span");
 let scoreKeeperPlayer2 = document.createElement("span");
@@ -42,13 +42,14 @@ mainDiv.id = 'tennis-match-counter-main-div';
 imgSection.id = 'tennis-match-counter-main-div-img-section';
 textSection.id = 'tennis-match-counter-main-div-text-section';
 textSectionDiv1.id = 'textSectionDiv1';
+textSectionDiv1.classList.add('content');
 
+//Bulma framework
 dropDownSection.id = 'dropDownSection-Div';
-dropDownSection.classList.add('field', 'is-grouped');
+dropDownSection.classList.add('field', 'is-grouped', 'custom-justify-content-center');
 
 textSectionDiv2.id = 'textSectionDiv2';
-//Bulma framework
-textSectionDiv2.classList.add('buttons', 'are-medium');
+textSectionDiv2.classList.add('buttons', 'are-medium', 'has-addons', 'is-centered', 'custom-no-wrap');
 
 inputSection.id = 'tennis-match-counter-main-div-input-section';
 inputSection.classList.add('field', 'is-grouped');
@@ -57,7 +58,7 @@ resetSection.id = 'tennis-match-counter-main-div-reset-section';
 matchHistorySection.id = 'tennis-match-counter-main-div-matchhistory-section';
 
 //Define img
-let imgAdress = 'https://nwscdn.com/media/wysiwyg/3kf/Bat-and-ball-included-in-the-set.jpg';
+let imgAdress = 'Creative-Commons-Tennis-Ball-300x193.jpg';
 img.src = `${imgAdress}`;
 img.alt = "Image of 2 table tennis rackets";
 
@@ -80,14 +81,17 @@ if (localStorage.getItem('Player1Name')) {
 }
 
 //Define score keeper
+scoreKeeper.id = 'tennis-match-score-counter-div';
+scoreKeeper.classList.add('subtitle', 'is-2');
+
 scoreKeeperPlayer1.innerText = `${player1Score}`;
-scoreKeeperPlayer1.classList.add('tennis-match-score-counter');
+scoreKeeperPlayer1.classList.add('tennis-match-score-counter', 'player1-score-color');
 
 scoreKeeperSeparation.innerText = ' ; ';
 scoreKeeperSeparation.classList.add('tennis-match-score-counter');
 
 scoreKeeperPlayer2.innerText = `${player2Score}`;
-scoreKeeperPlayer2.classList.add('tennis-match-score-counter');
+scoreKeeperPlayer2.classList.add('tennis-match-score-counter', 'player2-score-color');
 
 //Define paragraph
 instructionParagraph.innerText = "Use the buttons below to adjust the score.";
@@ -96,7 +100,7 @@ instructionParagraph.classList.add('content', 'is-medium');
 //Define label
 playingToButton.innerText = 'Playing to';
 playingToButton.name = 'playingTo';
-playingToButton.classList.add('label');
+playingToButton.classList.add('label', 'is-large');
 
 //Define select, select options
 matchCountSelect.id = 'tennis-match-counter-select';
@@ -112,26 +116,24 @@ for (let i = 1; i <= 10; i++) {
 //Define buttons
 player1IncreasePoints.innerText = `${player1Name}: +1`;
 player1IncreasePoints.id = 'player1-increase';
-player1IncreasePoints.classList.add('button', 'is-success');
+player1IncreasePoints.classList.add('button', 'is-success', 'is-fullwidth');
 
 player2IncreasePoints.innerText = `${player2Name}: +1`;
 player2IncreasePoints.id = 'player2-increase';
-player2IncreasePoints.classList.add('button', 'is-danger');
+player2IncreasePoints.classList.add('button', 'is-danger', 'is-fullwidth');
 
 newMatchButton.innerText = 'New Match';
 newMatchButton.id = 'newMatch';
-newMatchButton.classList.add('button', 'is-white');
+newMatchButton.classList.add('button', 'custom-grey');
 
 //Define input
 player1NameInput.type = 'text';
 player1NameInput.classList.add('tennis-match-username', 'input', 'is-success');
 player1NameInput.placeholder = 'Username';
-player1NameInput.maxLength = 3;
 
 player2NameInput.type = 'text';
 player2NameInput.classList.add('tennis-match-username', 'input', 'is-danger');
 player2NameInput.placeholder = 'Username';
-player2NameInput.maxLength = 3;
 
 //Define match history
 matchHistory.classList.add('table');
