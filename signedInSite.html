@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <meta
+      name="description"
+      content="Generic tennis team IF, Inconspicuous motes of rock and gas trillion kindling the energy hidden in matter Orion's sword rogue something incredible is waiting to be known."
+    />
+
     <script
       defer
       src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"
@@ -16,15 +20,18 @@
     ></script>
     <script defer src="firebaseStuff.js"></script>
     <script defer src="signedInSite-app.js"></script>
-    <title>Main site - Logged In</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+
+    <title>GTT IF - Logged In</title>
   </head>
+
   <body>
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-          <figure class="image">
-            <img src="." />
-          </figure>
+        <a id="go-to-home-page" class="navbar-item" href="signedInSite.html">
+          <img src="icon.png" alt="website icon" width="80px" />
         </a>
         <a
           role="button"
@@ -43,7 +50,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <button class="button is-primary" href="/login.html" disabled>
+              <button class="button is-primary" href="#" disabled>
                 <strong>Login</strong>
               </button>
               <button id="index-nav-btn-Logout" class="button is-light">
