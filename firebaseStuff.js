@@ -20,12 +20,11 @@ auth.onAuthStateChanged(user => {
             displayName.innerText = `Welcome ${user.email.slice(0, user.email.indexOf('@'))}`;
         }
         else {
-            displayName.innerText = `Welcome ${user.displayName.slice(0, user.displayName.indexOf(' '))}`;
+            if (user.displayName.indexOf(' ') === -1) displayName.innerText = `Welcome ${user.displayName}`;
+            else displayName.innerText = `Welcome ${user.displayName.slice(0, user.displayName.indexOf(' '))}`;
         }
     }
-    else {
-        window.location.replace('index.html');
-    }
+    else window.location.replace('index.html');
 })
 
 const logOutBtn = document.querySelector('#index-nav-btn-Logout');
