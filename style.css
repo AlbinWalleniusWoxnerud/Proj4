@@ -28,7 +28,7 @@
   color: hsl(348, 86%, 61%);
 }
 
-.custom-justify-content-center {
+#custom-justify-content-center {
   /* This is very very cursed but I cant find a better solution */
-  justify-content: center !important;
+  justify-content: center;
 }

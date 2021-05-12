@@ -28,10 +28,13 @@ let newMatchButton = document.createElement("button");
 let player1NameInput = document.createElement('input');
 let player2NameInput = document.createElement('input');
 let reset = document.createElement('button');
+let lineBreak = document.createElement('br');
+let matchHistoryTitle = document.createElement('h2');
 let matchHistory = document.createElement('table');
 let matchHistoryHead = document.createElement('thead');
 let matchHistoryHeadRow = document.createElement('tr');
-let matchHistoryHeadTag = document.createElement('th');
+let matchHistoryHeadTagWinner = document.createElement('th');
+let matchHistoryHeadTagScore = document.createElement('th');
 let matchHistoryBody = document.createElement('tbody');
 
 
@@ -46,7 +49,8 @@ textSectionDiv1.classList.add('content');
 
 //Bulma framework
 dropDownSection.id = 'dropDownSection-Div';
-dropDownSection.classList.add('field', 'is-grouped', 'custom-justify-content-center');
+dropDownSection.classList.add('field', 'is-grouped');
+dropDownSection.id = 'custom-justify-content-center';
 
 textSectionDiv2.id = 'textSectionDiv2';
 textSectionDiv2.classList.add('buttons', 'are-medium', 'has-addons', 'is-centered', 'custom-no-wrap');
@@ -98,7 +102,7 @@ instructionParagraph.innerText = "Use the buttons below to adjust the score.";
 instructionParagraph.classList.add('content', 'is-medium');
 
 //Define label
-playingToButton.innerText = 'Playing to';
+playingToButton.innerText = 'Playing to: ';
 playingToButton.name = 'playingTo';
 playingToButton.classList.add('label', 'is-large');
 
@@ -136,12 +140,18 @@ player2NameInput.classList.add('tennis-match-username', 'input', 'is-danger');
 player2NameInput.placeholder = 'Username';
 
 //Define match history
-matchHistory.classList.add('table');
-matchHistoryHeadTag.innerText = 'Match History';
-matchHistoryHeadTag.classList.add('thead', 'title', 'is-3');
+matchHistoryTitle.classList.add('title', 'is-3');
+matchHistoryTitle.innerText = 'Match History';
+matchHistory.classList.add('table', 'is-bordered', 'is-striped', 'is-narrow', 'is-hoverable', 'is-fullwidth');
+matchHistory.id = 'custom-justify-content-center';
+matchHistoryHeadTagWinner.innerText = 'Winner';
+matchHistoryHeadTagWinner.classList.add('thead', 'title', 'is-4');
+matchHistoryHeadTagWinner.classList.add('th');
+matchHistoryHeadTagScore.innerText = 'Score';
+matchHistoryHeadTagScore.classList.add('thead', 'title', 'is-4');
+matchHistoryHeadTagScore.classList.add('th');
 matchHistoryHead.classList.add('thead');
 matchHistoryHeadRow.classList.add('tr');
-matchHistoryHeadTag.classList.add('th');
 matchHistoryBody.classList.add('tbody');
 
 //Define reset
@@ -179,10 +189,12 @@ inputSection.appendChild(player2NameInput);
 resetSection.appendChild(reset);
 
 //Append things to matchHistorySection
-matchHistoryHeadRow.appendChild(matchHistoryHeadTag);
+matchHistoryHeadRow.appendChild(matchHistoryHeadTagWinner);
+matchHistoryHeadRow.appendChild(matchHistoryHeadTagScore);
 matchHistoryHead.appendChild(matchHistoryHeadRow);
 matchHistory.appendChild(matchHistoryHead);
 matchHistory.appendChild(matchHistoryBody);
+matchHistorySection.appendChild(matchHistoryTitle);
 matchHistorySection.appendChild(matchHistory);
 
 //Append sub-sub-containers to textSection
@@ -357,7 +369,7 @@ function AddToMatchHistory(input) {
     }
     matchHistoryBodyRow.appendChild(matchHistoryBodyTdWinner);
     matchHistoryBodyRow.appendChild(matchHistoryBodyTdScore);
-    matchHistoryBody.appendChild(matchHistoryBodyRow);
+    matchHistoryBody.prepend(matchHistoryBodyRow);
 }
 
 // function AddToMatchHistory() {
